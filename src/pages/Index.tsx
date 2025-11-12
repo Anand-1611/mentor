@@ -1,4 +1,5 @@
 import { useRef } from "react";
+import { Link } from "react-router-dom";
 import { motion, useInView } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { BookOpen, Users, Sparkles, GraduationCap } from "lucide-react";
@@ -41,12 +42,16 @@ const Index = () => {
               Your trusted academic ecosystem for notes, mentorship, and AI-powered study tools
             </p>
             <div className="flex gap-4 justify-center flex-wrap">
-              <Button size="lg" className="bg-accent hover:bg-accent/90 text-accent-foreground shadow-lg">
-                Get Started
-              </Button>
-              <Button size="lg" variant="outline" className="border-2 border-border">
-                Learn More
-              </Button>
+              <Link to="/auth?mode=signup">
+                <Button size="lg" className="bg-accent hover:bg-accent/90 text-accent-foreground shadow-lg">
+                  Get Started
+                </Button>
+              </Link>
+              <Link to="/notes">
+                <Button size="lg" variant="outline" className="border-2 border-border">
+                  Browse Notes
+                </Button>
+              </Link>
             </div>
           </motion.div>
         </div>
@@ -124,9 +129,11 @@ const Index = () => {
               <p className="text-xl text-muted-foreground mb-8">
                 Join thousands of students already excelling with MentorLink
               </p>
-              <Button size="lg" className="bg-accent hover:bg-accent/90 text-accent-foreground shadow-lg">
-                Start Your Journey
-              </Button>
+              <Link to="/auth?mode=signup">
+                <Button size="lg" className="bg-accent hover:bg-accent/90 text-accent-foreground shadow-lg">
+                  Start Your Journey
+                </Button>
+              </Link>
             </div>
           </AnimatedSection>
         </div>
