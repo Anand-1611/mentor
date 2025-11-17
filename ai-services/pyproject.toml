@@ -1,0 +1,35 @@
+[tool.poetry]
+name = "mentorlink-ai-services"
+version = "0.1.0"
+description = "AI microservices for MentorLink platform"
+authors = ["MentorLink Team"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+fastapi = "^0.109.0"
+uvicorn = {extras = ["standard"], version = "^0.27.0"}
+python-multipart = "^0.0.6"
+pydantic = "^2.5.0"
+pydantic-settings = "^2.1.0"
+httpx = "^0.26.0"
+python-jose = {extras = ["cryptography"], version = "^3.3.0"}
+PyMuPDF = "^1.23.0"
+sentence-transformers = "^2.3.0"
+faiss-cpu = "^1.7.4"
+openai = "^1.10.0"
+anthropic = "^0.8.0"
+pytesseract = "^0.3.10"
+Pillow = "^10.2.0"
+numpy = "^1.26.0"
+tenacity = "^8.2.3"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^7.4.0"
+pytest-asyncio = "^0.23.0"
+black = "^24.1.0"
+ruff = "^0.1.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

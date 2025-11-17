@@ -16,24 +16,33 @@ export type Database = {
     Tables: {
       bookings: {
         Row: {
+          amount: number | null
           created_at: string | null
+          duration: number | null
           id: string
+          meeting_url: string | null
           mentor_id: string
           slot: string
           status: Database["public"]["Enums"]["booking_status"] | null
           student_id: string
         }
         Insert: {
+          amount?: number | null
           created_at?: string | null
+          duration?: number | null
           id?: string
+          meeting_url?: string | null
           mentor_id: string
           slot: string
           status?: Database["public"]["Enums"]["booking_status"] | null
           student_id: string
         }
         Update: {
+          amount?: number | null
           created_at?: string | null
+          duration?: number | null
           id?: string
+          meeting_url?: string | null
           mentor_id?: string
           slot?: string
           status?: Database["public"]["Enums"]["booking_status"] | null
@@ -111,6 +120,47 @@ export type Database = {
             isOneToOne: false
             referencedRelation: "notes"
             referencedColumns: ["id"]
+          },
+        ]
+      }
+      mentor_availability: {
+        Row: {
+          created_at: string | null
+          day_of_week: number
+          end_time: string
+          id: string
+          is_available: boolean | null
+          mentor_id: string
+          start_time: string
+          updated_at: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          day_of_week: number
+          end_time: string
+          id?: string
+          is_available?: boolean | null
+          mentor_id: string
+          start_time: string
+          updated_at?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          day_of_week?: number
+          end_time?: string
+          id?: string
+          is_available?: boolean | null
+          mentor_id?: string
+          start_time?: string
+          updated_at?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "mentor_availability_mentor_id_fkey"
+            columns: ["mentor_id"]
+            isOneToOne: false
+            referencedRelation: "mentors"
+            referencedColumns: ["user_id"]
           },
         ]
       }

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mentor Verification Successful</title>
+  <style>
+    body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; max-width: 600px; margin: 0 auto; padding: 20px; }
+    .header { background: linear-gradient(135deg, #10b981 0%, #059669 100%); color: white; padding: 30px; text-align: center; border-radius: 8px 8px 0 0; }
+    .content { background: #f9fafb; padding: 30px; border-radius: 0 0 8px 8px; }
+    .button { display: inline-block; background: #10b981; color: white; padding: 12px 30px; text-decoration: none; border-radius: 6px; margin: 20px 0; }
+    .score-box { background: white; padding: 20px; border-radius: 6px; margin: 20px 0; text-align: center; }
+    .badge { display: inline-block; background: #10b981; color: white; padding: 8px 16px; border-radius: 20px; font-weight: bold; margin: 10px 0; }
+    .footer { text-align: center; color: #6b7280; font-size: 14px; margin-top: 30px; }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h1>🎉 Congratulations!</h1>
+    <h2 style="margin: 10px 0 0 0; font-weight: normal;">You're Now a Verified Mentor</h2>
+  </div>
+  <div class="content">
+    <p>Hi {{mentorName}},</p>
+    <p>Excellent work! You've successfully passed the verification test and are now a verified mentor on MentorLink.</p>
+    
+    <div class="score-box">
+      <h3>Your Test Results</h3>
+      <p><strong>Subject:</strong> {{subject}}</p>
+      <p style="font-size: 36px; font-weight: bold; color: #10b981; margin: 15px 0;">{{score}}%</p>
+      <span class="badge">✓ VERIFIED MENTOR</span>
+    </div>
+
+    <p><strong>What's Next?</strong></p>
+    <ul>
+      <li>Your profile now displays a verified badge</li>
+      <li>Students can discover and book sessions with you</li>
+      <li>Set your availability schedule to start receiving bookings</li>
+      <li>Complete your profile to attract more students</li>
+    </ul>
+
+    <div style="text-align: center;">
+      <a href="{{profileUrl}}" class="button">Complete Your Profile</a>
+    </div>
+
+    <p><strong>Tips for Success:</strong></p>
+    <ul>
+      <li>Keep your availability calendar up to date</li>
+      <li>Respond promptly to student inquiries</li>
+      <li>Prepare well for each session</li>
+      <li>Encourage students to leave reviews after sessions</li>
+    </ul>
+
+    <p>We're excited to have you as part of the MentorLink community. Your expertise will help students achieve their academic goals!</p>
+
+    <p>Best of luck with your mentoring journey!<br>The MentorLink Team</p>
+  </div>
+  <div class="footer">
+    <p>© 2024 MentorLink. All rights reserved.</p>
+    <p>This email was sent to {{mentorEmail}}</p>
+  </div>
+</body>
+</html>

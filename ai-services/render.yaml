@@ -1,0 +1,36 @@
+services:
+  - type: web
+    name: mentorlink-ai-services
+    env: docker
+    dockerfilePath: ./Dockerfile
+    dockerContext: ./
+    region: oregon
+    plan: starter
+    branch: main
+    healthCheckPath: /health
+    envVars:
+      - key: ENVIRONMENT
+        value: production
+      - key: LOG_LEVEL
+        value: INFO
+      - key: MAX_WORKERS
+        value: 4
+      - key: FAISS_INDEX_PATH
+        value: /app/data/faiss_index
+      - key: SUPABASE_URL
+        sync: false
+      - key: SUPABASE_SERVICE_KEY
+        sync: false
+      - key: OPENAI_API_KEY
+        sync: false
+      - key: ANTHROPIC_API_KEY
+        sync: false
+      - key: STORAGE_URL
+        sync: false
+      - key: CORS_ORIGINS
+        sync: false
+    autoDeploy: true
+    disk:
+      name: faiss-data
+      mountPath: /app/data
+      sizeGB: 10

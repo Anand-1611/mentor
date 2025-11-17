@@ -1,0 +1,174 @@
+{
+  "$schema": "https://json-schema.org/draft-07/schema#",
+  "description": "Uptime monitoring configuration for MentorLink production services",
+  "version": "1.0.0",
+  "monitors": [
+    {
+      "name": "Frontend - Production",
+      "type": "http",
+      "url": "https://your-domain.com",
+      "method": "GET",
+      "interval": 60,
+      "timeout": 10,
+      "expectedStatus": 200,
+      "locations": ["us-east", "eu-west", "ap-south"],
+      "description": "Main frontend application health check",
+      "alerts": {
+        "downtime": {
+          "threshold": 2,
+          "thresholdUnit": "minutes",
+          "channels": ["email", "slack"],
+          "message": "Frontend is down! Immediate attention required."
+        },
+        "slowResponse": {
+          "threshold": 3000,
+          "thresholdUnit": "milliseconds",
+          "channels": ["email"],
+          "message": "Frontend response time is degraded."
+        }
+      }
+    },
+    {
+      "name": "API - Supabase",
+      "type": "http",
+      "url": "https://kdtcwnnddukdbgkylmxq.supabase.co/rest/v1/",
+      "method": "GET",
+      "interval": 60,
+      "timeout": 10,
+      "headers": {
+        "apikey": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImtkdGN3bm5kZHVrZGJna3lsbXhxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjMzNzIyNDEsImV4cCI6MjA3ODk0ODI0MX0.nNr6d_0U5OE09PsIJrWqJPyKmp7anPsFxfIntbDpsEo"
+      },
+      "expectedStatus": 200,
+      "description": "Supabase REST API health check",
+      "alerts": {
+        "downtime": {
+          "threshold": 2,
+          "thresholdUnit": "minutes",
+          "channels": ["email", "sms", "slack"],
+          "message": "Supabase API is down! Critical service outage."
+        },
+        "slowResponse": {
+          "threshold": 2000,
+          "thresholdUnit": "milliseconds",
+          "channels": ["email"],
+          "message": "Supabase API response time is degraded."
+        }
+      }
+    },
+    {
+      "name": "AI Services - Health Check",
+      "type": "http",
+      "url": "https://[service].railway.app/health",
+      "method": "GET",
+      "interval": 120,
+      "timeout": 15,
+      "expectedStatus": 200,
+      "expectedBody": {
+        "status": "healthy"
+      },
+      "description": "AI microservices health check endpoint",
+      "alerts": {
+        "downtime": {
+          "threshold": 3,
+          "thresholdUnit": "minutes",
+          "channels": ["email", "slack"],
+          "message": "AI Services are down! Flashcards, quiz, and chat features unavailable."
+        },
+        "slowResponse": {
+          "threshold": 5000,
+          "thresholdUnit": "milliseconds",
+          "channels": ["email"],
+          "message": "AI Services response time is degraded."
+        }
+      }
+    },
+    {
+      "name": "Storage - Supabase",
+      "type": "http",
+      "url": "https://kdtcwnnddukdbgkylmxq.supabase.co/storage/v1/",
+      "method": "GET",
+      "interval": 300,
+      "timeout": 10,
+      "expectedStatus": 200,
+      "description": "Supabase Storage API health check",
+      "alerts": {
+        "downtime": {
+          "threshold": 2,
+          "thresholdUnit": "minutes",
+          "channels": ["email"],
+          "message": "Supabase Storage is down! File uploads/downloads unavailable."
+        }
+      }
+    },
+    {
+      "name": "Edge Functions - Stripe Webhook",
+      "type": "http",
+      "url": "https://kdtcwnnddukdbgkylmxq.supabase.co/functions/v1/stripe-webhook",
+      "method": "POST",
+      "interval": 300,
+      "timeout": 10,
+      "expectedStatus": 400,
+      "description": "Stripe webhook endpoint availability check (expects 400 without valid payload)",
+      "alerts": {
+        "downtime": {
+          "threshold": 5,
+          "thresholdUnit": "minutes",
+          "channels": ["email", "slack"],
+          "message": "Stripe webhook endpoint is down! Payment processing may be affected."
+        }
+      }
+    }
+  ],
+  "alertChannels": {
+    "email": {
+      "type": "email",
+      "recipients": ["admin@your-domain.com", "dev@your-domain.com"],
+      "description": "Primary email notification channel"
+    },
+    "slack": {
+      "type": "slack",
+      "webhookUrl": "https://hooks.slack.com/services/YOUR/WEBHOOK/URL",
+      "channel": "#alerts",
+      "description": "Slack notifications for team visibility"
+    },
+    "sms": {
+      "type": "sms",
+      "numbers": ["+1234567890"],
+      "description": "SMS alerts for critical incidents"
+    }
+  },
+  "escalationPolicy": {
+    "description": "Escalation policy for unacknowledged incidents",
+    "steps": [
+      {
+        "delay": 0,
+        "delayUnit": "seconds",
+        "channels": ["email", "slack"],
+        "description": "Immediate notification via email and Slack"
+      },
+      {
+        "delay": 300,
+        "delayUnit": "seconds",
+        "channels": ["sms"],
+        "description": "SMS escalation after 5 minutes"
+      },
+      {
+        "delay": 600,
+        "delayUnit": "seconds",
+        "channels": ["phone"],
+        "description": "Phone call escalation after 10 minutes"
+      }
+    ]
+  },
+  "maintenanceWindows": {
+    "description": "Scheduled maintenance windows to suppress alerts",
+    "windows": []
+  },
+  "notes": [
+    "Update URLs with your actual production domains",
+    "Replace [your-anon-key] with actual Supabase anon key",
+    "Configure alert channels with real contact information",
+    "Adjust thresholds based on your SLA requirements",
+    "This configuration is for Better Stack uptime monitoring"
+  ]
+}

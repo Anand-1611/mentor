@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>New Booking Received</title>
+  <style>
+    body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; max-width: 600px; margin: 0 auto; padding: 20px; }
+    .header { background: linear-gradient(135deg, #10b981 0%, #059669 100%); color: white; padding: 30px; text-align: center; border-radius: 8px 8px 0 0; }
+    .content { background: #f9fafb; padding: 30px; border-radius: 0 0 8px 8px; }
+    .button { display: inline-block; background: #10b981; color: white; padding: 12px 30px; text-decoration: none; border-radius: 6px; margin: 20px 0; }
+    .details { background: white; padding: 20px; border-radius: 6px; margin: 20px 0; }
+    .earnings { background: #d1fae5; padding: 15px; border-radius: 6px; margin: 20px 0; text-align: center; }
+    .footer { text-align: center; color: #6b7280; font-size: 14px; margin-top: 30px; }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h1>🎓 New Session Booked!</h1>
+  </div>
+  <div class="content">
+    <p>Hi {{mentorName}},</p>
+    <p>Great news! A student has booked a mentoring session with you.</p>
+    
+    <div class="details">
+      <h3>Session Details</h3>
+      <p><strong>Student:</strong> {{studentName}}</p>
+      <p><strong>Subject:</strong> {{subject}}</p>
+      <p><strong>Date & Time:</strong> {{sessionDateTime}}</p>
+      <p><strong>Duration:</strong> {{duration}} minutes</p>
+      <p><strong>Booking ID:</strong> {{bookingId}}</p>
+    </div>
+
+    <div class="earnings">
+      <h3 style="margin: 0 0 10px 0;">💰 Your Earnings</h3>
+      <p style="font-size: 24px; font-weight: bold; margin: 0; color: #059669;">₹{{mentorEarnings}}</p>
+      <p style="font-size: 14px; color: #6b7280; margin: 5px 0 0 0;">(After platform commission)</p>
+    </div>
+
+    <p><strong>Preparation Tips:</strong></p>
+    <ul>
+      <li>Review the student's profile and learning goals if available</li>
+      <li>Prepare relevant materials or examples for the subject</li>
+      <li>Test your video and audio setup before the session</li>
+      <li>Join the call a few minutes early to ensure everything works</li>
+    </ul>
+
+    <div style="text-align: center;">
+      <a href="{{dashboardUrl}}" class="button">View Session Details</a>
+    </div>
+
+    <p>The video call link will be available on your dashboard 10 minutes before the scheduled time.</p>
+
+    <p>Thank you for being part of the MentorLink community!<br>The MentorLink Team</p>
+  </div>
+  <div class="footer">
+    <p>© 2024 MentorLink. All rights reserved.</p>
+    <p>This email was sent to {{mentorEmail}}</p>
+  </div>
+</body>
+</html>

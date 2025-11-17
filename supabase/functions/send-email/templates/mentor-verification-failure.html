@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mentor Verification Results</title>
+  <style>
+    body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; max-width: 600px; margin: 0 auto; padding: 20px; }
+    .header { background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%); color: white; padding: 30px; text-align: center; border-radius: 8px 8px 0 0; }
+    .content { background: #f9fafb; padding: 30px; border-radius: 0 0 8px 8px; }
+    .button { display: inline-block; background: #667eea; color: white; padding: 12px 30px; text-decoration: none; border-radius: 6px; margin: 20px 0; }
+    .score-box { background: white; padding: 20px; border-radius: 6px; margin: 20px 0; text-align: center; }
+    .info-box { background: #fef3c7; border-left: 4px solid #f59e0b; padding: 15px; margin: 20px 0; border-radius: 4px; }
+    .footer { text-align: center; color: #6b7280; font-size: 14px; margin-top: 30px; }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h1>Verification Test Results</h1>
+  </div>
+  <div class="content">
+    <p>Hi {{mentorName}},</p>
+    <p>Thank you for taking the mentor verification test. We appreciate your interest in joining the MentorLink mentor community.</p>
+    
+    <div class="score-box">
+      <h3>Your Test Results</h3>
+      <p><strong>Subject:</strong> {{subject}}</p>
+      <p style="font-size: 36px; font-weight: bold; color: #f59e0b; margin: 15px 0;">{{score}}%</p>
+      <p style="color: #6b7280;">Passing Score: 70%</p>
+    </div>
+
+    <div class="info-box">
+      <p><strong>What This Means:</strong></p>
+      <p>Unfortunately, your score didn't meet the minimum requirement of 70% for mentor verification. However, this is just a temporary setback!</p>
+    </div>
+
+    <p><strong>You Can Retake the Test:</strong></p>
+    <ul>
+      <li>Review the study materials for {{subject}}</li>
+      <li>Take your time to prepare thoroughly</li>
+      <li>You can retake the test after 7 days</li>
+      <li>There's no limit to the number of attempts</li>
+    </ul>
+
+    <div style="text-align: center;">
+      <a href="{{studyResourcesUrl}}" class="button">View Study Resources</a>
+    </div>
+
+    <p><strong>Tips for Next Time:</strong></p>
+    <ul>
+      <li>Focus on understanding core concepts rather than memorization</li>
+      <li>Practice with sample questions in your subject area</li>
+      <li>Take notes while studying and review them before the test</li>
+      <li>Ensure you're in a quiet environment during the test</li>
+    </ul>
+
+    <p>Don't be discouraged! Many successful mentors didn't pass on their first attempt. We believe in your potential and look forward to seeing you succeed.</p>
+
+    <p>Keep learning and try again soon!<br>The MentorLink Team</p>
+  </div>
+  <div class="footer">
+    <p>© 2024 MentorLink. All rights reserved.</p>
+    <p>This email was sent to {{mentorEmail}}</p>
+  </div>
+</body>
+</html>

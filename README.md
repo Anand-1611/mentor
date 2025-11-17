@@ -1,4 +1,15 @@
-# Welcome to your Lovable project
+# MentorLink - Academic Ecosystem Platform
+
+MentorLink is a comprehensive academic platform that combines a notes marketplace, verified senior mentorship, and AI-enhanced study tools to help students excel in their studies.
+
+## Features
+
+- **Notes Marketplace**: Upload, preview, purchase, and download academic PDF notes
+- **Verified Mentorship**: Connect with verified senior students for 1:1 tutoring sessions
+- **AI Study Tools**: Generate flashcards, create quizzes, and chat with your PDFs
+- **Analytics Dashboard**: Track your learning progress and identify weak areas
+- **Secure Payments**: Integrated payment processing with Stripe
+- **Video Calls**: Built-in video conferencing for mentoring sessions
 
 ## Project info
 
@@ -60,14 +71,126 @@ This project is built with:
 - shadcn-ui
 - Tailwind CSS
 
-## How can I deploy this project?
+## Production Deployment
+
+For production deployment, we provide comprehensive documentation and automated scripts:
+
+### Quick Start
+
+1. **Read the deployment guide**: [DEPLOYMENT_GUIDE.md](./DEPLOYMENT_GUIDE.md)
+2. **Use the checklist**: [DEPLOYMENT_CHECKLIST.md](./DEPLOYMENT_CHECKLIST.md)
+3. **Set up environment variables**: Run the setup script
+   ```bash
+   # Windows
+   .\scripts\setup-production-env.ps1
+   
+   # Linux/Mac
+   chmod +x scripts/setup-production-env.sh
+   ./scripts/setup-production-env.sh
+   ```
+
+### Documentation
+
+- [Production Deployment Guide](./DEPLOYMENT_GUIDE.md) - Complete step-by-step instructions
+- [Deployment Checklist](./DEPLOYMENT_CHECKLIST.md) - Comprehensive checklist for deployment
+- [Environment Variables](./docs/ENVIRONMENT_VARIABLES.md) - Detailed variable documentation
+- [Production Deployment Docs](./docs/PRODUCTION_DEPLOYMENT.md) - Architecture and maintenance guide
+
+### Deployment Platforms
+
+- **Frontend**: Vercel (recommended) or Netlify
+- **Database**: Supabase (managed PostgreSQL)
+- **AI Services**: Railway or Render
+- **Storage**: Cloudflare R2 or AWS S3
+- **Monitoring**: Sentry + Better Stack
+
+## Monitoring & Logging
+
+MentorLink includes comprehensive monitoring and logging:
+
+### Services
+
+- **Sentry**: Error tracking and performance monitoring
+- **Better Stack**: Log aggregation and uptime monitoring
+- **Vercel Analytics**: Frontend performance and Web Vitals
+
+### Setup Monitoring
+
+```bash
+# Windows
+.\scripts\setup-monitoring.ps1
+
+# Linux/Mac
+chmod +x scripts/setup-monitoring.sh
+./scripts/setup-monitoring.sh
+```
+
+### Documentation
+
+- [Monitoring Guide](./docs/MONITORING_AND_LOGGING.md) - Complete monitoring documentation
+- [Setup Checklist](./docs/MONITORING_SETUP_CHECKLIST.md) - Step-by-step setup guide
+- [Quick Reference](./docs/MONITORING_QUICK_REFERENCE.md) - Common tasks and troubleshooting
+
+### Key Features
+
+- Real-time error tracking with Sentry
+- Structured logging to Better Stack
+- Uptime monitoring for all services
+- Performance metrics and Web Vitals
+- Custom dashboards and alerts
+- Session replay for debugging
+
+### Quick Deploy to Vercel
 
 Simply open [Lovable](https://lovable.dev/projects/6ca42f1d-4d94-4cd1-b8fd-a4b612b7c0b2) and click on Share -> Publish.
 
-## Can I connect a custom domain to my Lovable project?
+Or use the Vercel CLI:
+```bash
+npm install -g vercel
+vercel --prod
+```
 
-Yes, you can!
+## Custom Domain
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+To connect a custom domain:
 
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
+1. Navigate to Project > Settings > Domains in Vercel
+2. Click "Add Domain"
+3. Follow the DNS configuration instructions
+4. SSL certificate will be auto-provisioned
+
+Read more: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
+
+## Architecture
+
+```
+Frontend (React + Vite)
+    ↓
+Supabase (Database + Auth + Storage)
+    ↓
+AI Services (Python FastAPI)
+    ↓
+Vector Database (FAISS)
+```
+
+## Environment Setup
+
+### Development
+```bash
+# Copy environment template
+cp .env .env.local
+
+# Install dependencies
+npm install
+
+# Start development server
+npm run dev
+
+# Start AI services (in separate terminal)
+cd ai-services
+poetry install
+poetry run uvicorn app.main:app --reload
+```
+
+### Production
+See [DEPLOYMENT_GUIDE.md](./DEPLOYMENT_GUIDE.md) for complete production setup instructions.

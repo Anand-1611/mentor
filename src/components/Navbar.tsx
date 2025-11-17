@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Menu, X, GraduationCap } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
+import { useIsAdmin } from "@/hooks/useIsAdmin";
 
 interface NavbarProps {
   user: any;
@@ -13,6 +14,7 @@ export const Navbar = ({ user }: NavbarProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const navigate = useNavigate();
   const { toast } = useToast();
+  const { isAdmin } = useIsAdmin();
 
   const handleSignOut = async () => {
     await supabase.auth.signOut();
@@ -43,9 +45,19 @@ export const Navbar = ({ user }: NavbarProps) => {
               Community
             </Link>
             {user && (
-              <Link to="/dashboard" className="text-foreground hover:text-accent transition-colors">
-                Dashboard
-              </Link>
+              <>
+                <Link to="/dashboard" className="text-foreground hover:text-accent transition-colors">
+                  Dashboard
+                </Link>
+                <Link to="/my-purchases" className="text-foreground hover:text-accent transition-colors">
+                  My Purchases
+                </Link>
+                {isAdmin && (
+                  <Link to="/admin" className="text-foreground hover:text-accent transition-colors">
+                    Admin
+                  </Link>
+                )}
+              </>
             )}
           </div>
 
@@ -54,6 +66,9 @@ export const Navbar = ({ user }: NavbarProps) => {
               <>
                 <Link to="/profile">
                   <Button variant="ghost">Profile</Button>
+                </Link>
+                <Link to="/settings">
+                  <Button variant="ghost">Settings</Button>
                 </Link>
                 <Button onClick={handleSignOut} variant="outline">
                   Sign Out
@@ -105,13 +120,31 @@ export const Navbar = ({ user }: NavbarProps) => {
               Community
             </Link>
             {user && (
-              <Link
-                to="/dashboard"
-                className="block py-2 px-4 hover:bg-muted rounded-lg"
-                onClick={() => setIsOpen(false)}
-              >
-                Dashboard
-              </Link>
+              <>
+                <Link
+                  to="/dashboard"
+                  className="block py-2 px-4 hover:bg-muted rounded-lg"
+                  onClick={() => setIsOpen(false)}
+                >
+                  Dashboard
+                </Link>
+                <Link
+                  to="/my-purchases"
+                  className="block py-2 px-4 hover:bg-muted rounded-lg"
+                  onClick={() => setIsOpen(false)}
+                >
+                  My Purchases
+                </Link>
+                {isAdmin && (
+                  <Link
+                    to="/admin"
+                    className="block py-2 px-4 hover:bg-muted rounded-lg"
+                    onClick={() => setIsOpen(false)}
+                  >
+                    Admin
+                  </Link>
+                )}
+              </>
             )}
             <div className="pt-2 space-y-2">
               {user ? (
@@ -119,6 +152,11 @@ export const Navbar = ({ user }: NavbarProps) => {
                   <Link to="/profile" onClick={() => setIsOpen(false)}>
                     <Button variant="ghost" className="w-full">
                       Profile
+                    </Button>
+                  </Link>
+                  <Link to="/settings" onClick={() => setIsOpen(false)}>
+                    <Button variant="ghost" className="w-full">
+                      Settings
                     </Button>
                   </Link>
                   <Button onClick={handleSignOut} variant="outline" className="w-full">

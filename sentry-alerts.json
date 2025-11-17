@@ -1,0 +1,225 @@
+{
+  "alertRules": [
+    {
+      "name": "High Error Rate",
+      "description": "Alert when error rate exceeds threshold",
+      "conditions": [
+        {
+          "type": "event_frequency",
+          "value": 50,
+          "interval": "5m"
+        }
+      ],
+      "filters": {
+        "environment": ["production"]
+      },
+      "actions": [
+        {
+          "type": "email",
+          "targetType": "team",
+          "targetIdentifier": "engineering"
+        },
+        {
+          "type": "slack",
+          "workspace": "mentorlink",
+          "channel": "#alerts"
+        }
+      ],
+      "frequency": 15
+    },
+    {
+      "name": "Payment Processing Errors",
+      "description": "Alert on payment-related errors",
+      "conditions": [
+        {
+          "type": "event_frequency",
+          "value": 5,
+          "interval": "1h"
+        }
+      ],
+      "filters": {
+        "environment": ["production"],
+        "tags": {
+          "category": "payment"
+        }
+      },
+      "actions": [
+        {
+          "type": "email",
+          "targetType": "team",
+          "targetIdentifier": "engineering"
+        },
+        {
+          "type": "slack",
+          "workspace": "mentorlink",
+          "channel": "#critical-alerts"
+        }
+      ],
+      "frequency": 5
+    },
+    {
+      "name": "Performance Degradation",
+      "description": "Alert when p95 response time is too high",
+      "conditions": [
+        {
+          "type": "transaction_duration",
+          "percentile": 95,
+          "value": 2000,
+          "interval": "10m"
+        }
+      ],
+      "filters": {
+        "environment": ["production"]
+      },
+      "actions": [
+        {
+          "type": "email",
+          "targetType": "team",
+          "targetIdentifier": "engineering"
+        }
+      ],
+      "frequency": 30
+    },
+    {
+      "name": "Critical Errors",
+      "description": "Immediate alert for critical errors",
+      "conditions": [
+        {
+          "type": "event_frequency",
+          "value": 1,
+          "interval": "1m"
+        }
+      ],
+      "filters": {
+        "environment": ["production"],
+        "level": ["fatal", "critical"]
+      },
+      "actions": [
+        {
+          "type": "email",
+          "targetType": "team",
+          "targetIdentifier": "engineering"
+        },
+        {
+          "type": "slack",
+          "workspace": "mentorlink",
+          "channel": "#critical-alerts"
+        },
+        {
+          "type": "pagerduty",
+          "service": "mentorlink-production"
+        }
+      ],
+      "frequency": 0
+    },
+    {
+      "name": "AI Service Errors",
+      "description": "Alert on AI service failures",
+      "conditions": [
+        {
+          "type": "event_frequency",
+          "value": 10,
+          "interval": "15m"
+        }
+      ],
+      "filters": {
+        "environment": ["production"],
+        "tags": {
+          "service": "ai-services"
+        }
+      },
+      "actions": [
+        {
+          "type": "email",
+          "targetType": "team",
+          "targetIdentifier": "engineering"
+        },
+        {
+          "type": "slack",
+          "workspace": "mentorlink",
+          "channel": "#alerts"
+        }
+      ],
+      "frequency": 15
+    },
+    {
+      "name": "Database Query Performance",
+      "description": "Alert on slow database queries",
+      "conditions": [
+        {
+          "type": "transaction_duration",
+          "percentile": 95,
+          "value": 1000,
+          "interval": "10m"
+        }
+      ],
+      "filters": {
+        "environment": ["production"],
+        "transaction": "db.query"
+      },
+      "actions": [
+        {
+          "type": "email",
+          "targetType": "team",
+          "targetIdentifier": "engineering"
+        }
+      ],
+      "frequency": 30
+    },
+    {
+      "name": "Session Replay Errors",
+      "description": "Alert when errors with session replays occur",
+      "conditions": [
+        {
+          "type": "event_frequency",
+          "value": 10,
+          "interval": "1h"
+        }
+      ],
+      "filters": {
+        "environment": ["production"],
+        "hasReplay": true
+      },
+      "actions": [
+        {
+          "type": "email",
+          "targetType": "team",
+          "targetIdentifier": "engineering"
+        }
+      ],
+      "frequency": 60
+    }
+  ],
+  "metricAlerts": [
+    {
+      "name": "High Memory Usage",
+      "description": "Alert when memory usage is high",
+      "metric": "memory.usage",
+      "threshold": 85,
+      "comparison": "above",
+      "timeWindow": "5m",
+      "actions": [
+        {
+          "type": "email",
+          "targetType": "team",
+          "targetIdentifier": "engineering"
+        }
+      ]
+    },
+    {
+      "name": "API Error Rate",
+      "description": "Alert when API error rate exceeds 1%",
+      "metric": "api.error_rate",
+      "threshold": 1,
+      "comparison": "above",
+      "timeWindow": "5m",
+      "actions": [
+        {
+          "type": "slack",
+          "workspace": "mentorlink",
+          "channel": "#alerts"
+        }
+      ]
+    }
+  ]
+}

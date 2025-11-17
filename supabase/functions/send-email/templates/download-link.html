@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Your Download is Ready</title>
+  <style>
+    body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; max-width: 600px; margin: 0 auto; padding: 20px; }
+    .header { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 30px; text-align: center; border-radius: 8px 8px 0 0; }
+    .content { background: #f9fafb; padding: 30px; border-radius: 0 0 8px 8px; }
+    .button { display: inline-block; background: #10b981; color: white; padding: 12px 30px; text-decoration: none; border-radius: 6px; margin: 20px 0; font-weight: bold; }
+    .details { background: white; padding: 20px; border-radius: 6px; margin: 20px 0; }
+    .warning { background: #fef3c7; border-left: 4px solid #f59e0b; padding: 15px; margin: 20px 0; border-radius: 4px; }
+    .footer { text-align: center; color: #6b7280; font-size: 14px; margin-top: 30px; }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h1>📥 Your Download is Ready!</h1>
+  </div>
+  <div class="content">
+    <p>Hi {{buyerName}},</p>
+    <p>Great news! Your watermarked PDF is ready for download.</p>
+    
+    <div class="details">
+      <h3>Download Details</h3>
+      <p><strong>Note Title:</strong> {{noteTitle}}</p>
+      <p><strong>Subject:</strong> {{subject}}</p>
+      <p><strong>Transaction ID:</strong> {{transactionId}}</p>
+    </div>
+
+    <div style="text-align: center;">
+      <a href="{{downloadUrl}}" class="button">Download PDF Now</a>
+    </div>
+
+    <div class="warning">
+      <p><strong>⚠️ Important:</strong></p>
+      <ul style="margin: 10px 0; padding-left: 20px;">
+        <li>This download link will expire on <strong>{{expiryDate}}</strong></li>
+        <li>The PDF is watermarked with your email and transaction ID for security</li>
+        <li>Please do not share this file publicly as it's tied to your account</li>
+      </ul>
+    </div>
+
+    <p>If the download link doesn't work or has expired, you can always access your purchased notes from your dashboard.</p>
+
+    <div style="text-align: center; margin-top: 20px;">
+      <a href="{{dashboardUrl}}" style="color: #667eea; text-decoration: none;">View My Purchases →</a>
+    </div>
+
+    <p>Happy studying!<br>The MentorLink Team</p>
+  </div>
+  <div class="footer">
+    <p>© 2024 MentorLink. All rights reserved.</p>
+    <p>This email was sent to {{buyerEmail}}</p>
+  </div>
+</body>
+</html>
