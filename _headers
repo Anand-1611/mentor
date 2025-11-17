@@ -1,0 +1,11 @@
+/assets/*
+  Cache-Control: max-age=31536000
+
+/*.js
+  Content-Type: application/javascript
+
+/*.mjs
+  Content-Type: application/javascript
+
+/*.css
+  Content-Type: text/css
