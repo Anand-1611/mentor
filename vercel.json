@@ -6,15 +6,7 @@
   "installCommand": "npm install",
   "devCommand": "npm run dev",
   "regions": ["iad1"],
-  "env": {
-    "VITE_SUPABASE_URL": "@supabase-url",
-    "VITE_SUPABASE_PUBLISHABLE_KEY": "@supabase-publishable-key",
-    "VITE_SUPABASE_PROJECT_ID": "@supabase-project-id",
-    "VITE_STORAGE_URL": "@storage-url",
-    "VITE_STRIPE_PUBLISHABLE_KEY": "@stripe-publishable-key",
-    "VITE_AI_SERVICE_URL": "@ai-service-url",
-    "VITE_SENTRY_DSN": "@sentry-dsn"
-  },
+
   "build": {
     "env": {
       "NODE_ENV": "production"
