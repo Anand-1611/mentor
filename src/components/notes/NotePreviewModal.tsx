@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -8,6 +8,7 @@ import { Document, Page, pdfjs } from "react-pdf";
 import "react-pdf/dist/Page/AnnotationLayer.css";
 import "react-pdf/dist/Page/TextLayer.css";
 import { Tables } from "@/integrations/supabase/types";
+import { supabase } from "@/integrations/supabase/client";
 import { FlashcardGenerator } from "./FlashcardGenerator";
 import { FlashcardStudyDialog } from "./FlashcardStudyDialog";
 import { PDFChatSidebar } from "./PDFChatSidebar";
@@ -40,6 +41,13 @@ export function NotePreviewModal({
   const [loading, setLoading] = useState(true);
   const [generatedFlashcards, setGeneratedFlashcards] = useState<Flashcard[]>([]);
   const [showStudyDialog, setShowStudyDialog] = useState(false);
+
+  // Get the public URL for the PDF
+  const pdfUrl = useMemo(() => {
+    if (!note?.file_path) return null;
+    const { data } = supabase.storage.from("notes").getPublicUrl(note.file_path);
+    return data.publicUrl;
+  }, [note?.file_path]);
 
   if (!note) return null;
 
@@ -147,7 +155,7 @@ export function NotePreviewModal({
 
             <div className="space-y-4">
               <Document
-                file={note.file_path}
+                file={pdfUrl}
                 onLoadSuccess={onDocumentLoadSuccess}
                 onLoadError={onDocumentLoadError}
                 loading={null}
