@@ -276,13 +276,17 @@ export async function getQuiz(quizId: string): Promise<Quiz> {
     throw error;
   }
   
-  return data;
+  // Parse questions from JSON to QuizQuestion[]
+  return {
+    ...data,
+    questions: data.questions as unknown as QuizQuestion[],
+  };
 }
 
 /**
  * Get user's quizzes
  */
-export async function getUserQuizzes() {
+export async function getUserQuizzes(): Promise<Quiz[]> {
   const { data, error } = await supabase
     .from("quizzes")
     .select("*")
@@ -292,7 +296,11 @@ export async function getUserQuizzes() {
     throw error;
   }
   
-  return data;
+  // Parse questions from JSON to QuizQuestion[] for each quiz
+  return data.map(quiz => ({
+    ...quiz,
+    questions: quiz.questions as unknown as QuizQuestion[],
+  }));
 }
 
 /**
@@ -310,7 +318,7 @@ export async function submitQuizAttempt(
     throw new Error("Not authenticated");
   }
   
-  const { data, error } = await supabase
+  const { data, error } = await (supabase as any)
     .from("quiz_attempts")
     .insert({
       user_id: user.id,
