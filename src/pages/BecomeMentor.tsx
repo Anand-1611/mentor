@@ -7,6 +7,7 @@ import { TestResults } from "@/components/mentor/TestResults";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { CheckCircle2, GraduationCap, FileCheck, Award } from "lucide-react";
+import { toast } from "sonner";
 
 const BecomeMentor = () => {
   const navigate = useNavigate();
@@ -54,9 +55,29 @@ const BecomeMentor = () => {
     }
   };
 
-  const handleApplicationSuccess = () => {
-    setCurrentStep("test");
-    checkMentorStatus();
+  const handleApplicationSuccess = async () => {
+    // Fetch the newly created mentor data
+    try {
+      const {
+        data: { user },
+      } = await supabase.auth.getUser();
+
+      if (user) {
+        const { data: mentor } = await supabase
+          .from("mentors")
+          .select("*")
+          .eq("user_id", user.id)
+          .single();
+
+        if (mentor) {
+          setMentorData(mentor);
+          setCurrentStep("test");
+        }
+      }
+    } catch (error) {
+      console.error("Error fetching mentor data:", error);
+      toast.error("Failed to load test. Please refresh the page.");
+    }
   };
 
   const handleTestComplete = (score: number, passed: boolean) => {
