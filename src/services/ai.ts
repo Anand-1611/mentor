@@ -7,6 +7,21 @@ import { supabase } from "@/integrations/supabase/client";
 
 const AI_SERVICE_URL = import.meta.env.VITE_AI_SERVICE_URL || "http://localhost:8000";
 
+/**
+ * Check if AI services are available
+ */
+export async function isAIServiceAvailable(): Promise<boolean> {
+  try {
+    const response = await fetch(`${AI_SERVICE_URL}/health`, {
+      method: "GET",
+      signal: AbortSignal.timeout(2000), // 2 second timeout
+    });
+    return response.ok;
+  } catch {
+    return false;
+  }
+}
+
 export interface Flashcard {
   id?: string;
   question: string;
@@ -44,6 +59,12 @@ async function getAuthToken(): Promise<string> {
 export async function generateFlashcards(
   request: GenerateFlashcardsRequest
 ): Promise<GenerateFlashcardsResponse> {
+  // Check if AI service is available
+  const isAvailable = await isAIServiceAvailable();
+  if (!isAvailable) {
+    throw new Error("AI services are currently unavailable. Please ensure the AI service is running or contact support.");
+  }
+  
   const token = await getAuthToken();
   
   const response = await fetch(`${AI_SERVICE_URL}/ai/generate-flashcards`, {
@@ -119,6 +140,12 @@ export interface ChatPDFResponse {
 export async function indexPDF(
   request: IndexPDFRequest
 ): Promise<IndexPDFResponse> {
+  // Check if AI service is available
+  const isAvailable = await isAIServiceAvailable();
+  if (!isAvailable) {
+    throw new Error("AI services are currently unavailable. Please ensure the AI service is running or contact support.");
+  }
+  
   const token = await getAuthToken();
   
   const response = await fetch(`${AI_SERVICE_URL}/ai/index-pdf`, {
@@ -210,6 +237,12 @@ export interface QuizAttempt {
 export async function generateQuiz(
   request: GenerateQuizRequest
 ): Promise<GenerateQuizResponse> {
+  // Check if AI service is available
+  const isAvailable = await isAIServiceAvailable();
+  if (!isAvailable) {
+    throw new Error("AI services are currently unavailable. Please ensure the AI service is running or contact support.");
+  }
+  
   const token = await getAuthToken();
   
   const response = await fetch(`${AI_SERVICE_URL}/ai/generate-quiz`, {
