@@ -39,6 +39,7 @@ export function NotePreviewModal({
 }: NotePreviewModalProps) {
   const [numPages, setNumPages] = useState<number>(0);
   const [loading, setLoading] = useState(true);
+  const [loadError, setLoadError] = useState<string | null>(null);
   const [generatedFlashcards, setGeneratedFlashcards] = useState<Flashcard[]>([]);
   const [showStudyDialog, setShowStudyDialog] = useState(false);
 
@@ -54,11 +55,15 @@ export function NotePreviewModal({
   const onDocumentLoadSuccess = ({ numPages }: { numPages: number }) => {
     setNumPages(numPages);
     setLoading(false);
+    setLoadError(null);
   };
 
   const onDocumentLoadError = (error: Error) => {
     console.error("Error loading PDF:", error);
+    console.error("PDF URL:", pdfUrl);
+    console.error("File path:", note?.file_path);
     setLoading(false);
+    setLoadError("Unable to load PDF preview. The file may not exist or the storage bucket may not be configured correctly.");
   };
 
   const isFree = note.price === 0 || note.price === null;
@@ -144,12 +149,24 @@ export function NotePreviewModal({
               Preview (First 3 Pages)
             </h3>
 
-            {loading && (
+            {loading && !loadError && (
               <div className="flex items-center justify-center py-12">
                 <Loader2 className="w-8 h-8 animate-spin text-accent" />
                 <span className="ml-2 text-muted-foreground">
                   Loading preview...
                 </span>
+              </div>
+            )}
+
+            {loadError && (
+              <div className="flex flex-col items-center justify-center py-12 text-center">
+                <p className="text-destructive mb-2">{loadError}</p>
+                <p className="text-sm text-muted-foreground">
+                  Please ensure the storage bucket is public and the file exists.
+                </p>
+                <p className="text-xs text-muted-foreground mt-2">
+                  See DEBUG_PDF_ISSUE.md for troubleshooting steps.
+                </p>
               </div>
             )}
 
